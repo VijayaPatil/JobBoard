@@ -1,0 +1,41 @@
+<style type="text/css">
+    .leftMenu {  }
+</style>
+
+<script type="text/javascript" >
+    function CheckText(e, text){
+        if(e.value == text){
+            e.value = '';
+        }
+    }
+</script>
+
+<div class="mainContent">
+  <div class="leftMenu">
+    <div></div>
+  </div>
+
+  <div class="jobList">
+    <% unless @jobresults.blank? %>
+
+        <% if @jobresults.ResponseJobSearch.TotalCount == 0 %>
+            No jobs found for your search criteria
+        <% else %>
+
+            <% @jobresults.ResponseJobSearch.Results.JobSearchResult.each do |result| %>
+                <div class="resultItem">
+                  <br>
+                  <h4><%= link_to result.JobTitle, jobdetailview_path(:jobDID => result.DID) %></h4>
+                  <br>
+                  Location : <%= result.Location %>
+                  <br><br>
+                  Descripion : <%= result.DescriptionTeaser %>
+                  <br><br>
+                  <hr>
+                </div>
+            <% end %>
+        <% end %>
+    <% end %>
+  </div>
+
+</div>
